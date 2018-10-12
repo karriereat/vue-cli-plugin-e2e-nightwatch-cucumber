@@ -1,0 +1,33 @@
+{
+  "name": "vue-cli-plugin-e2e-nightwatch-cucumber",
+  "version": "0.1.0",
+  "description": "Nightwatch/Cucumber plugin for Vue CLI 3",
+  "main": "index.js",
+  "scripts": {
+    "test:setup": "babel-node test/server.js",
+    "test:run": "cucumber-js --require-module babel-core/register --require test/support --require step-definitions --format node_modules/cucumber-pretty",
+    "test": "start-server-and-test test:setup http-get://localhost:4444/status test:run"
+  },
+  "author": "Manuel Wieser",
+  "license": "MIT",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "chromedriver": "^2.40.0",
+    "cucumber": "^4.2.1",
+    "cucumber-pretty": "^1.4.4",
+    "execa": "^1.0.0",
+    "geckodriver": "^1.11.0",
+    "nightwatch": "1.0.6",
+    "nightwatch-api": "0.4.0",
+    "start-server-and-test": "^1.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.6.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1"
+  }
+}
