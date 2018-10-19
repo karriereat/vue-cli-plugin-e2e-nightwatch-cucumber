@@ -1,6 +1,6 @@
 {
   "name": "vue-cli-plugin-e2e-nightwatch-cucumber",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Nightwatch/Cucumber plugin for Vue CLI 3",
   "main": "index.js",
   "author": "Manuel Wieser <manuel.wieser@karriere.at>",

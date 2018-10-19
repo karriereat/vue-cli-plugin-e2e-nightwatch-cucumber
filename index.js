@@ -10,8 +10,9 @@ module.exports = (api, projectOptions) => {
         argv: [
           '--require-module', 'babel-core/register',
           '--require', 'test/support',
-          '--require', 'step-definitions',
-          '--format', 'node_modules/cucumber-pretty',
+          '--require', `${api.getCwd()}/tests/step-definitions`,
+          '--format', `${api.getCwd()}/node_modules/cucumber-pretty`,
+          `${api.getCwd()}/tests/features/**/*.feature`,
         ],
         cwd: __dirname,
         stdout: process.stdout,
