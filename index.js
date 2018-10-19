@@ -3,13 +3,8 @@ module.exports = (api, projectOptions) => {
   api.registerCommand('test:e2e', {
     description: 'Run end-to-end tests with Nightwatch/Cucumber',
   }, () => {
-    // (1) Start Vue CLI dev server
-    const serverPromise = api.service.run('serve');
-    return serverPromise.then(() => {
-      // (2) Start web driver via Nightwatch API
-      const execa = require('execa');
-      execa(`${__dirname}/test/server.js`);
-      // (3) Run cucumber tests
+    const server = api.service.run('serve');
+    server.then(() => {
       const CucumberCLI = require('cucumber/lib/cli').default;
       const cucumberCLI = new CucumberCLI({
         argv: [
@@ -21,7 +16,10 @@ module.exports = (api, projectOptions) => {
         cwd: __dirname,
         stdout: process.stdout,
       });
-      cucumberCLI.run();
+      cucumberCLI.run().then(({ success }) => {
+        const code = !success;
+        process.exit(code);
+      });
     });
   });
 };
