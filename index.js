@@ -16,7 +16,8 @@ module.exports = (api, projectOptions) => {
         cwd: __dirname,
         stdout: process.stdout,
       });
-      cucumberCLI.run().then(({ success }) => {
+      const cucumber = cucumberCLI.run();
+      cucumber.then(({ success }) => {
         const code = !success;
         process.exit(code);
       });
