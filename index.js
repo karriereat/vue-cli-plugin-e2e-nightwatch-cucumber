@@ -8,7 +8,7 @@ module.exports = (api, projectOptions) => {
     return serverPromise.then(() => {
       // (2) Start web driver via Nightwatch API
       const execa = require('execa');
-      execa('test/server.js');
+      execa(`${__dirname}/test/server.js`);
       // (3) Run cucumber tests
       const CucumberCLI = require('cucumber/lib/cli').default;
       const cucumberCLI = new CucumberCLI({
