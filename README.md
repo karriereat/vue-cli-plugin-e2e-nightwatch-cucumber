@@ -2,8 +2,6 @@
 
 > Nightwatch/Cucumber plugin for Vue CLI 3
 
-![](terminal.png)
-
 ## Injected Commands
 
 ```sh
