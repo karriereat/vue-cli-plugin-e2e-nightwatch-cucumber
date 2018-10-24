@@ -1,10 +1,14 @@
 {
   "name": "vue-cli-plugin-e2e-nightwatch-cucumber",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Nightwatch/Cucumber plugin for Vue CLI 3",
   "main": "index.js",
   "author": "Manuel Wieser <manuel.wieser@karriere.at>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karriereat/vue-cli-plugin-e2e-nightwatch-cucumber.git"
+  },
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
