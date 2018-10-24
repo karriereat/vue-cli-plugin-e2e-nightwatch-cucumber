@@ -5,7 +5,13 @@
 ## Injected Commands
 
 ```sh
-vue-cli-service test:e2e
+vue-cli-service test:e2e [options]
+```
+
+### Options
+
+```sh
+-e, --env specify browser environment to run in (as specified in your `nightwatch.conf.js`)
 ```
 
 ## Configuration

@@ -9,8 +9,8 @@ const {
 setDefaultTimeout(60000);
 
 BeforeAll(async () => {
-  await startWebDriver('default');
-  await createSession('default');
+  await startWebDriver(process.env.NIGHTWATCH_ENVIRONMENT);
+  await createSession(process.env.NIGHTWATCH_ENVIRONMENT);
 });
 
 AfterAll(async () => {
