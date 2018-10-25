@@ -4,13 +4,13 @@
 
 ## Injected Commands
 
-```sh
+```
 vue-cli-service test:e2e [options]
 ```
 
 ### Options
 
-```sh
+```
 -e, --env specify browser environment to run in (as specified in your `nightwatch.conf.js`)
 ```
 
@@ -20,9 +20,7 @@ The plugin will generate exemplary feature files and step definitions. Everythin
 
 ### Nightwatch
 
-You can edit `nightwatch.config.js` in your project root, but remember that the plugin is still in it’s infancy and many configuration options lead to unexcepted results.
-
-If you want to change only specific parts of the [default configuration](nightwatch.conf.js) you can use any library that recursively merges objects, like `lodash.merge`:
+You can edit `nightwatch.config.js` in your project root. If you want to change only specific parts of the [default configuration](nightwatch.conf.js) you can use any library that recursively merges objects, like `lodash.merge`:
 
 ```js
 const merge = require('lodash.merge');
@@ -49,6 +47,6 @@ Cucumber configuration is also planned, but not yet implemented.
  
 ## Installing
 
-``` sh
+```
 vue add e2e-nightwatch-cucumber
 ```
