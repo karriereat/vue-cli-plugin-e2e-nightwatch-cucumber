@@ -12,6 +12,7 @@ module.exports = (api) => {
     removeArg(rawArgs, '--env');
 
     const cucumberArguments = cucumberArgs(rawArgs, args);
+    console.log(cucumberArguments);
 
     const server = api.service.run('serve');
     server.then(() => {
