@@ -12,7 +12,6 @@ module.exports = (api) => {
     removeArg(rawArgs, '--env');
 
     const cucumberArguments = cucumberArgs(rawArgs, args);
-    console.log(cucumberArguments);
 
     const server = api.service.run('serve');
     server.then(() => {
@@ -40,13 +39,14 @@ function cucumberArgs(rawArgs, args) {
     return !Object.hasOwnProperty.call(args, property);
   }
   const cucumberArguments = rawArgs;
+  // TODO Refactoring
   // The order `--require-module`, `--require`, `--format` and `[<GLOB|DIR|FILE>]` is important!
   if (argsLacking('format') || argsLacking('f')) {
     cucumberArguments.unshift('--format', 'node_modules/cucumber-pretty');
   }
   if (argsLacking('require') || argsLacking('r')) {
-    cucumberArguments.unshift('--require', `${__dirname}/test/support`);
     cucumberArguments.unshift('--require', 'tests/step-definitions');
+    cucumberArguments.unshift('--require', `${__dirname}/test/support`);
   }
   if (argsLacking('require-module')) {
     cucumberArguments.unshift('--require-module', 'babel-core/register');
