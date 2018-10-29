@@ -5,7 +5,7 @@
 ## Injected Commands
 
 ```
-vue-cli-service test:e2e [options]
+vue-cli-service test:e2e [options] [<GLOB|DIR|FILE>]
 ```
 
 ### Options
@@ -43,7 +43,7 @@ module.exports = merge(config, {
 
 ### Cucumber
 
-Cucumber configuration is also planned, but not yet implemented.
+All [Cucumber CLI](https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md) options are forwarded to the CLI. If used, an option will override the plugin's default option. For example, if you pass `--format <TYPE[:PATH]>` you'll only override the default formatter.
  
 ## Installing
 
