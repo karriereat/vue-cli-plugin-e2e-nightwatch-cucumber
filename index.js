@@ -18,7 +18,7 @@ module.exports = (api) => {
       const CucumberCLI = require('cucumber/lib/cli').default;
       const cucumberCLI = new CucumberCLI({
         argv: cucumberArguments,
-        cwd: api.cwd(),
+        cwd: api.getCwd(),
         stdout: process.stdout,
       });
       const cucumber = cucumberCLI.run();
