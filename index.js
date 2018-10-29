@@ -11,15 +11,14 @@ module.exports = (api) => {
     removeArg(rawArgs, '-e');
     removeArg(rawArgs, '--env');
 
-    const cucumberArguments = cucumberArgs(rawArgs, args, api);
-    // console.log(cucumberArguments); process.exit();
+    const cucumberArguments = cucumberArgs(rawArgs, args);
 
     const server = api.service.run('serve');
     server.then(() => {
       const CucumberCLI = require('cucumber/lib/cli').default;
       const cucumberCLI = new CucumberCLI({
         argv: cucumberArguments,
-        cwd: __dirname,
+        cwd: api.cwd(),
         stdout: process.stdout,
       });
       const cucumber = cucumberCLI.run();
@@ -35,7 +34,7 @@ module.exports.defaultModes = {
   'test:e2e': 'production',
 };
 
-function cucumberArgs(rawArgs, args, api) {
+function cucumberArgs(rawArgs, args) {
   function argsLacking(property) {
     return !Object.hasOwnProperty.call(args, property);
   }
@@ -44,14 +43,14 @@ function cucumberArgs(rawArgs, args, api) {
     cucumberArguments.push('--require-module', 'babel-core/register');
   }
   if (argsLacking('require') || argsLacking('r')) {
-    cucumberArguments.push('--require', 'test/support');
-    cucumberArguments.push('--require', `${api.getCwd()}/tests/step-definitions`);
+    cucumberArguments.push('--require', `${__dirname}/test/support`);
+    cucumberArguments.push('--require', 'tests/step-definitions');
   }
   if (argsLacking('format') || argsLacking('f')) {
-    cucumberArguments.push('--format', `${api.getCwd()}/node_modules/cucumber-pretty`);
+    cucumberArguments.push('--format', 'node_modules/cucumber-pretty');
   }
   if (!args._.length) {
-    cucumberArguments.push(`${api.getCwd()}/tests/features/**/*.feature`);
+    cucumberArguments.push('tests/features/**/*.feature');
   }
   return cucumberArguments;
 }
