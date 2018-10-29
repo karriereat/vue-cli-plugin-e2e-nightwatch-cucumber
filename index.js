@@ -40,15 +40,16 @@ function cucumberArgs(rawArgs, args) {
     return !Object.hasOwnProperty.call(args, property);
   }
   const cucumberArguments = rawArgs;
-  if (argsLacking('require-module')) {
-    cucumberArguments.push('--require-module', 'babel-core/register');
+  // The order `--require-module`, `--require`, `--format` and `[<GLOB|DIR|FILE>]` is important!
+  if (argsLacking('format') || argsLacking('f')) {
+    cucumberArguments.unshift('--format', 'node_modules/cucumber-pretty');
   }
   if (argsLacking('require') || argsLacking('r')) {
-    cucumberArguments.push('--require', `${__dirname}/test/support`);
-    cucumberArguments.push('--require', 'tests/step-definitions');
+    cucumberArguments.unshift('--require', `${__dirname}/test/support`);
+    cucumberArguments.unshift('--require', 'tests/step-definitions');
   }
-  if (argsLacking('format') || argsLacking('f')) {
-    cucumberArguments.push('--format', 'node_modules/cucumber-pretty');
+  if (argsLacking('require-module')) {
+    cucumberArguments.unshift('--require-module', 'babel-core/register');
   }
   if (!args._.length) {
     cucumberArguments.push('tests/features/**/*.feature');
