@@ -43,7 +43,14 @@ module.exports = merge(config, {
 
 ### Cucumber
 
-All [Cucumber CLI](https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md) options are forwarded to the CLI. If used, an option will override the plugin's default option. For example, if you pass `--format <TYPE[:PATH]>` you'll only override the default formatter.
+All [Cucumber CLI](https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md) options are forwarded to the CLI. If used, an option will override the plugin's default option. For example, if you pass `--format <TYPE[:PATH]>` you'll only override the default formatter
+
+ If you only want to run specific features you can call the `vue-cli-service test:e2e` command with a [glob](https://github.com/isaacs/node-glob) pattern, directory, feature file, scenario (`--name`) or tag (`--tag`):
+
+* `vue-cli-service test:e2e "tests/**/*.feature"`
+* `vue-cli-service test:e2e "tests/features"`
+* `vue-cli-service test:e2e "tests/features/duckduckgo-search.feature"`
+* `vue-cli-service test:e2e --name "Searching DuckDuckGo"`
  
 ## Installing
 
