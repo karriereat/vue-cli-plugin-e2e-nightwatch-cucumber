@@ -14,7 +14,9 @@ module.exports = (api) => {
     const cucumberArguments = cucumberArgs(rawArgs, args);
 
     const server = api.service.run('serve');
-    server.then(() => {
+    server.then(({ url }) => {
+      process.env.VUE_DEV_SERVER_URL = url;
+
       const CucumberCLI = require('cucumber/lib/cli').default;
       const cucumberCLI = new CucumberCLI({
         argv: cucumberArguments,
