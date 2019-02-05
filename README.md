@@ -77,7 +77,7 @@ vue create my-project
 cd my-project
 npm link /path/vue-cli-plugin-e2e-nightwatch-cucumber
 vue invoke e2e-nightwatch-cucumber
-cp -r /path/vue-cli-plugin-e2e-nightwatch-cucumber/test/support/ ./tests/support
+cp -r /path/vue-cli-plugin-e2e-nightwatch-cucumber/tests/support/ ./tests/support
 npm install cucumber cucumber-pretty nightwatch nightwatch-api
 npm run test:e2e -- --require tests/step-definitions --require tests/support
 ```

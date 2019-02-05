@@ -50,7 +50,7 @@ function cucumberArgs(rawArgs, args) {
   }
   if (argsLacking('require') && argsLacking('r')) {
     cucumberArguments.unshift('--require', 'tests/step-definitions');
-    cucumberArguments.unshift('--require', `${__dirname}/test/support`);
+    cucumberArguments.unshift('--require', `${__dirname}/tests/support`);
   }
   if (argsLacking('require-module')) {
     cucumberArguments.unshift('--require-module', 'babel-core/register');
