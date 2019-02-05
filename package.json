@@ -1,6 +1,6 @@
 {
   "name": "vue-cli-plugin-e2e-nightwatch-cucumber",
-  "version": "1.1.0-alpha.1",
+  "version": "1.1.0",
   "description": "Nightwatch/Cucumber plugin for Vue CLI 3",
   "keywords": [
     "vue",
