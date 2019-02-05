@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const { setDefaultTimeout, AfterAll, BeforeAll } = require('cucumber');
 const {
   startWebDriver,

@@ -16,11 +16,13 @@ module.exports = (api) => {
     const server = api.service.run('serve');
     server.then(({ url }) => {
       process.env.VUE_DEV_SERVER_URL = url;
+      const cwd = api.getCwd();
 
-      const CucumberCLI = require('cucumber/lib/cli').default;
+      // eslint-disable-next-line import/no-dynamic-require
+      const CucumberCLI = require(`${cwd}/node_modules/cucumber/lib/cli`).default;
       const cucumberCLI = new CucumberCLI({
         argv: cucumberArguments,
-        cwd: api.getCwd(),
+        cwd,
         stdout: process.stdout,
       });
       const cucumber = cucumberCLI.run();
@@ -43,12 +45,12 @@ function cucumberArgs(rawArgs, args) {
   const cucumberArguments = rawArgs;
   // TODO Refactoring
   // The order `--require-module`, `--require`, `--format` and `[<GLOB|DIR|FILE>]` is important!
-  if (argsLacking('format') || argsLacking('f')) {
+  if (argsLacking('format') && argsLacking('f')) {
     cucumberArguments.unshift('--format', 'node_modules/cucumber-pretty');
   }
-  if (argsLacking('require') || argsLacking('r')) {
+  if (argsLacking('require') && argsLacking('r')) {
     cucumberArguments.unshift('--require', 'tests/step-definitions');
-    cucumberArguments.unshift('--require', `${__dirname}/test/support`);
+    cucumberArguments.unshift('--require', `${__dirname}/tests/support`);
   }
   if (argsLacking('require-module')) {
     cucumberArguments.unshift('--require-module', 'babel-core/register');
