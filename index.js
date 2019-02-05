@@ -43,10 +43,10 @@ function cucumberArgs(rawArgs, args) {
   const cucumberArguments = rawArgs;
   // TODO Refactoring
   // The order `--require-module`, `--require`, `--format` and `[<GLOB|DIR|FILE>]` is important!
-  if (argsLacking('format') || argsLacking('f')) {
+  if (argsLacking('format') && argsLacking('f')) {
     cucumberArguments.unshift('--format', 'node_modules/cucumber-pretty');
   }
-  if (argsLacking('require') || argsLacking('r')) {
+  if (argsLacking('require') && argsLacking('r')) {
     cucumberArguments.unshift('--require', 'tests/step-definitions');
     cucumberArguments.unshift('--require', `${__dirname}/test/support`);
   }
