@@ -57,3 +57,27 @@ All [Cucumber CLI](https://github.com/cucumber/cucumber-js/blob/master/docs/cli.
 ```
 vue add e2e-nightwatch-cucumber
 ```
+
+## Development
+
+The following workaround is necessary to prevent a Cucumber error when symlinking. Please let me know if you have better suggestions!
+
+> You appear to be executing an install of cucumber (most likely a global install)
+  that is different from your local install (the one required in your support files).
+  For cucumber to work, you need to execute the same install that is required in your support files.
+  Please execute the locally installed version to run your tests.
+  
+```bash
+# /path/vue-cli-plugin-e2e-nightwatch-cucumber
+npm link
+```
+
+```bash
+vue create my-project
+cd my-project
+npm link /path/vue-cli-plugin-e2e-nightwatch-cucumber
+vue invoke e2e-nightwatch-cucumber
+cp -r /path/vue-cli-plugin-e2e-nightwatch-cucumber/test/support/ ./tests/support
+npm install cucumber cucumber-pretty nightwatch nightwatch-api
+npm run test:e2e -- --require tests/step-definitions --require tests/support
+```

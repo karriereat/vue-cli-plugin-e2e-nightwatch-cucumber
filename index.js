@@ -16,11 +16,13 @@ module.exports = (api) => {
     const server = api.service.run('serve');
     server.then(({ url }) => {
       process.env.VUE_DEV_SERVER_URL = url;
+      const cwd = api.getCwd();
 
-      const CucumberCLI = require('cucumber/lib/cli').default;
+      // eslint-disable-next-line import/no-dynamic-require
+      const CucumberCLI = require(`${cwd}/node_modules/cucumber/lib/cli`).default;
       const cucumberCLI = new CucumberCLI({
         argv: cucumberArguments,
-        cwd: api.getCwd(),
+        cwd,
         stdout: process.stdout,
       });
       const cucumber = cucumberCLI.run();

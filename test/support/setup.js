@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const { setDefaultTimeout, AfterAll, BeforeAll } = require('cucumber');
 const {
   startWebDriver,
@@ -9,11 +10,27 @@ const {
 setDefaultTimeout(60000);
 
 BeforeAll(async () => {
-  await startWebDriver({ env: process.env.NIGHTWATCH_ENVIRONMENT });
-  await createSession({ env: process.env.NIGHTWATCH_ENVIRONMENT });
+  try {
+    await startWebDriver({ env: process.env.NIGHTWATCH_ENVIRONMENT });
+  } catch (err) {
+    console.error('startWebDriver()', err);
+  }
+  try {
+    await createSession({ env: process.env.NIGHTWATCH_ENVIRONMENT });
+  } catch (err) {
+    console.error('createSession()', err);
+  }
 });
 
 AfterAll(async () => {
-  await closeSession();
-  await stopWebDriver();
+  try {
+    await closeSession();
+  } catch (err) {
+    console.error('closeSession()', err);
+  }
+  try {
+    await stopWebDriver();
+  } catch (err) {
+    console.error('stopWebDriver()', err);
+  }
 });
