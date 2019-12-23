@@ -11,6 +11,7 @@ vue-cli-service test:e2e [options] [<GLOB|DIR|FILE>]
 ### Options
 
 ```
+--url run the tests against given url instead of auto-starting dev server
 -e, --env specify browser environment to run in (as specified in your `nightwatch.conf.js`)
 ```
 

@@ -4,33 +4,28 @@ module.exports = (api) => {
     description: 'Run end-to-end tests with Nightwatch/Cucumber',
     usage: 'vue-cli-service test:e2e [options] [<GLOB|DIR|FILE>]',
     options: {
+      '--url': 'run the tests against given url instead of auto-starting dev server',
       '-e, --env': 'specify browser environment to run in (as specified in your `nightwatch.conf.js`)',
     },
   }, (args, rawArgs) => {
+    const url = args.url;
+    const cwd = api.getCwd();
     process.env.NIGHTWATCH_ENVIRONMENT = args.e || args.env || 'default';
+    
+    removeArg(rawArgs, '--url');
     removeArg(rawArgs, '-e');
     removeArg(rawArgs, '--env');
 
     const cucumberArguments = cucumberArgs(rawArgs, args);
 
-    const server = api.service.run('serve');
-    server.then(({ url }) => {
-      process.env.VUE_DEV_SERVER_URL = url;
-      const cwd = api.getCwd();
-
-      // eslint-disable-next-line import/no-dynamic-require
-      const CucumberCLI = require(`${cwd}/node_modules/cucumber/lib/cli`).default;
-      const cucumberCLI = new CucumberCLI({
-        argv: cucumberArguments,
-        cwd,
-        stdout: process.stdout,
-      });
-      const cucumber = cucumberCLI.run();
-      cucumber.then(({ success }) => {
-        const code = !success;
-        process.exit(code);
-      });
-    });
+    if (url) {
+      runCucumber(cucumberArguments, cwd, url);
+    } else {
+      const server = api.service.run('serve');
+      server.then(({ url }) => { 
+        runCucumber(cucumberArguments, cwd, url);
+      });  
+    }
   });
 };
 
@@ -68,4 +63,21 @@ function removeArg(rawArgs, arg, offset = 1) {
   if (index > -1) {
     rawArgs.splice(index, offset + (equalRegExp.test(rawArgs[index]) ? 0 : 1));
   }
+}
+
+function runCucumber(cucumberArguments, cwd, url) {
+  process.env.VUE_DEV_SERVER_URL = url;
+
+  // eslint-disable-next-line import/no-dynamic-require
+  const CucumberCLI = require(`${cwd}/node_modules/cucumber/lib/cli`).default;
+  const cucumberCLI = new CucumberCLI({
+    argv: cucumberArguments,
+    cwd,
+    stdout: process.stdout,
+  });
+  const cucumber = cucumberCLI.run();
+  cucumber.then(({ success }) => {
+    const code = !success;
+    process.exit(code);
+  });
 }
